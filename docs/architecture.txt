@@ -1,0 +1,26 @@
+CampusFix Cloud Architecture
+
+Windows 11 Host
+       |
+       v
+VirtualBox Hypervisor
+       |
+       v
+Ubuntu Server
+       |
+       +---- UFW Firewall
+       |
+       v
+Docker Engine
+       |
+       +-------------------+
+       |                   |
+       v                   v
+campusfix-web         campusfix-db
+PHP 8.2 + Apache      MySQL 8
+       |                   |
+       +---------+---------+
+                 |
+                 v
+        campusfix_mysql_data
+          Persistent Volume

@@ -1,0 +1,33 @@
+services:
+  web:
+    build: ./docker
+    container_name: campusfix-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./website:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: campusfix-db
+    environment:
+      MYSQL_ROOT_PASSWORD: campusfix_root
+      MYSQL_DATABASE: campusfix
+      MYSQL_USER: campusfix_user
+      MYSQL_PASSWORD: campusfix_password
+    volumes:
+      - campusfix_mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "campusfix_user", "-pcampusfix_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  campusfix_mysql_data:
