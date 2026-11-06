@@ -55,3 +55,7 @@ Do not expose MySQL publicly. Only the web application and SSH should be allowed
 - automation/backup.sh
 - operational-manual.md
 - final-reflection.md
+
+  ## System Architecture Diagram
+
+![CampusFix Cloud System Architecture](CampusFix-Cloud-System-Architecture.jpg)
